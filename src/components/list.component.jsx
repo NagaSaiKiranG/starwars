@@ -8,47 +8,55 @@ import { Box, Typography } from "@material-ui/core";
 // import FormHelperText from '@material-ui/core/FormHelperText';
 // import FormControl from '@material-ui/core/FormControl';
 // import Select from '@material-ui/core/Select';
-import React from 'react';
+import React, { useContext } from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
 // import { blueGrey } from '@material-ui/core/colors';
 // import ListSubheader from '@material-ui/core/ListSubheader';
+import { SelectionContext } from './selectionContext';
 
 
 
-const ListComponent = ({ listItems, onClick, showSelected = true, listHeader = '', count }) => {
+const ListComponent = ({ listItems, onClick, showSelected = true, listHeader = '', count, type }) => {
     const [selectedIndex, setSelectedIndex] = React.useState(0);
+    const { dispatch } = useContext(SelectionContext);
+
     const onSelection = (cbParam, index) => {
-        onClick(cbParam)
+        if (onClick) {
+            onClick(cbParam)
+        }
         if (showSelected) {
             setSelectedIndex(index)
+        }
+        if (type) {
+            dispatch({type, data: cbParam})
         }
     }
     console.log("list component render")
     return (<Box className="container" >
         <Box pl={2} style={{ display: 'flex' }}>
-            <Box style={{flexGrow: 1}}>
-                <Typography variant="subtitle2" align="left" style={{fontWeight: 'bold', fontSize: 16}}>{listHeader}</Typography>
+            <Box style={{ flexGrow: 1 }}>
+                <Typography variant="subtitle2" align="left" style={{ fontWeight: 'bold', fontSize: 16 }}>{listHeader}</Typography>
             </Box>
-            {count ? <Box style={{width: 40, marginRight: 8, borderRadius: 50, backgroundColor: 'blueviolet', color: 'white'}}>
+            {count ? <Box style={{ width: 40, marginRight: 8, borderRadius: 50, backgroundColor: 'blueviolet', color: 'white' }}>
                 {count}
             </Box> : null}
         </Box>
         {
             listItems.length ? <List>
-            {listItems.map((listItem, index) => {
-                const { primary, secondary, cbParam } = listItem;
-                return (<ListItem
-                    divider={true}
-                    selected={showSelected ? selectedIndex === index : false}
-                    onClick={() => onSelection(cbParam, index)}
-                    key={cbParam}
-                >
-                    <ListItemText primary={primary} secondary={secondary} />
-                </ListItem>)
-            })}
-        </List> : <Skeleton variant="rect"  height={350} />
+                {listItems.map((listItem, index) => {
+                    const { primary, secondary, cbParam } = listItem;
+                    return (<ListItem
+                        divider={true}
+                        selected={showSelected ? selectedIndex === index : false}
+                        onClick={() => onSelection(cbParam, index)}
+                        key={cbParam}
+                    >
+                        <ListItemText primary={primary} secondary={secondary} />
+                    </ListItem>)
+                })}
+            </List> : <Skeleton variant="rect" height={350} />
         }
-        
+
     </Box>)
 }
 

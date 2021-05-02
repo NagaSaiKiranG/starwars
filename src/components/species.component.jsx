@@ -3,7 +3,7 @@ import { Box } from "@material-ui/core";
 import ListComponent from './list.component';
 import Skeleton from '@material-ui/lab/Skeleton';
 
-const Species = ({ loadingSpecies, species, onClick }) => {
+const Species = ({ loadingSpecies, species }) => {
     const [loading, setLoading] = useState(true);
     const [count, setCount] = useState(0);
     useEffect(() => {
@@ -46,7 +46,13 @@ const Species = ({ loadingSpecies, species, onClick }) => {
             </Grid>
         </Grid> */}
         <Box pt={1} className="container">
-            <ListComponent listItems={listItems} onClick={onClick} showSelected={true} listHeader="Species" count={count} />
+            <ListComponent
+            listItems={listItems}
+            showSelected={true}
+            listHeader="Species"
+            count={count}
+            type={"species"}
+            />
         </Box>
     </Box>)
 }

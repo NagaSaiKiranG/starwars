@@ -15,8 +15,8 @@ const FilmsList = (props) => {
     const [loadingSpecies, species] = useFetch('species/');
     const [listItems, setListItems] = useState([]);
     const [filmSelected, setFilmSelected] = useState(null);
-    const [planetSelected, setPlanetSelected] = useState(null);
-    const [speciesSelected, setSpeciesSelected] = useState(null);
+    // const [planetSelected, setPlanetSelected] = useState(null);
+    // const [speciesSelected, setSpeciesSelected] = useState(null);
     useEffect(() => {
         const { results } = data;
         const list = [];
@@ -39,13 +39,14 @@ const FilmsList = (props) => {
         setFilmSelected(data.results.filter((film) => film.episode_id === episode_id)[0]);
     }, [setFilmSelected, data])
 
-    const onClickOfSpecies = useCallback((url) => {
-        setSpeciesSelected(url);
-    }, [setSpeciesSelected])
+    // Using context instead of callbacks
+    // const onClickOfSpecies = useCallback((url) => {
+    //     setSpeciesSelected(url);
+    // }, [setSpeciesSelected])
 
-    const onClickOfPlanets = useCallback((url) => {
-        setPlanetSelected(url);
-    }, [setPlanetSelected])
+    // const onClickOfPlanets = useCallback((url) => {
+    //     setPlanetSelected(url);
+    // }, [setPlanetSelected])
 
     // const sample = useMemo(() => { }, []);
     // const sample = () => {};
@@ -62,15 +63,15 @@ const FilmsList = (props) => {
             <Grid item xs={8}>
                 <Box m={1}>
                     <FilmDetails film={filmSelected} sample={sample}/>
+                    {/* <BannerContext.Provider value={defaultState}> */}
                     <Banner
-                        planetURL={planetSelected}
                         planets={planets}
-                        speciesURL={speciesSelected}
                         species={species}
                         loadingPlanets={loadingPlanets}
                         loadingSpecies={loadingSpecies}
                         sample={sample}
                     />
+                    {/* </BannerContext.Provider> */}
                 </Box>
             </Grid>
         </Grid>
@@ -80,10 +81,10 @@ const FilmsList = (props) => {
                 <Characters people={people} loadingPeople={loadingPeople} sample={sample} />
             </Grid>
             <Grid item xs={4}>
-                <Species loadingSpecies={loadingSpecies} species={species} onClick={onClickOfSpecies} sample={sample} />
+                <Species loadingSpecies={loadingSpecies} species={species} sample={sample} />
             </Grid>
             <Grid item xs={4}>
-                <Planets loadingPlanets={loadingPlanets} planets={planets} onClick={onClickOfPlanets} sample={sample} />
+                <Planets loadingPlanets={loadingPlanets} planets={planets} sample={sample} />
             </Grid>
         </Grid>
     </>)

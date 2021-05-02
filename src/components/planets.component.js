@@ -3,7 +3,7 @@ import { Box } from "@material-ui/core";
 import ListComponent from './list.component';
 import Skeleton from '@material-ui/lab/Skeleton';
 
-const Planets = ({ loadingPlanets, planets, onClick }) => {
+const Planets = ({ loadingPlanets, planets }) => {
     const [loading, setLoading] = useState(true);
     const [count, setCount] = useState(0);
     useEffect(() => {
@@ -34,11 +34,17 @@ const Planets = ({ loadingPlanets, planets, onClick }) => {
     const listItems = useMemo(formatPlanetsData, [planets]);
     // const onclickCallBack = useCallback(() => { }, [planets]);
     if (loading) {
-        return (<Box m={1}><Skeleton variant="rect"  height={400} /></Box>)
+        return (<Box m={1}><Skeleton variant="rect" height={400} /></Box>)
     }
     return (<Box mx={0.5}>
         <Box pt={1} className="container">
-            <ListComponent listItems={listItems} onClick={onClick} showSelected={true} listHeader="Planets" count={count} />
+            <ListComponent
+                listItems={listItems}
+                showSelected={true}
+                listHeader="Planets"
+                count={count}
+                type={"planet"}
+            />
         </Box>
     </Box>)
 }
