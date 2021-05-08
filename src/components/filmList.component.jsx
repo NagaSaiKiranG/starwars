@@ -49,29 +49,27 @@ const FilmsList = (props) => {
 
     // const sample = useMemo(() => { }, []);
     // const sample = () => {};
-    const sample = useMemo(()=> ["a", "b"], []);
+    const sample = useMemo(() => ["a", "b"], []);
 
     return (<>
-        <Box pb={1} className="container">
+        {/* <Box pb={1} className="container">
             <Typography variant="h5">Star Wars</Typography>
-        </Box>
-        <Grid container>
+        </Box> */}
+        <Grid container spacing={2}>
             <Grid item xs={4}>
                 <ListComponent listItems={listItems} onClick={onclick} listHeader="Films List" />
             </Grid>
             <Grid item xs={8}>
-                <Box m={1}>
-                    <FilmDetails film={filmSelected} sample={sample}/>
-                    <Banner
-                        planetURL={planetSelected}
-                        planets={planets}
-                        speciesURL={speciesSelected}
-                        species={species}
-                        loadingPlanets={loadingPlanets}
-                        loadingSpecies={loadingSpecies}
-                        sample={sample}
-                    />
-                </Box>
+                <FilmDetails film={filmSelected} sample={sample} />
+                <Banner
+                    planetURL={planetSelected}
+                    planets={planets}
+                    speciesURL={speciesSelected}
+                    species={species}
+                    loadingPlanets={loadingPlanets}
+                    loadingSpecies={loadingSpecies}
+                    sample={sample}
+                />
             </Grid>
         </Grid>
         <Box p={2}></Box>
