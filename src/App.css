@@ -44,5 +44,24 @@
 
 }
 
-.synopsis {
+.navbar {
+  height: 40px;
+  width: 100%;
+  border: 1px solid snow;
+  background-color: midnightblue;
+}
+
+.brand {
+  padding: 8px 15px !important;
+  font-size: larger;
+}
+.navlink {
+  color: white;
+  text-decoration: auto;
+  padding: 11px 15px;
+  float: left;
+}
+
+.navlink.active {
+  color:#61dafb
 }
